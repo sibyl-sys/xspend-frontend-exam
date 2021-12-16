@@ -1,5 +1,5 @@
 import React, {useContext, useState} from "react";
-import { Container, Form, FormGroup, Input, Col, Row, Button } from "reactstrap"
+import { Container, Form, FormGroup, Input, Col, Row, Button, FormFeedback } from "reactstrap"
 
 
 
@@ -25,6 +25,14 @@ export default function FriendForm () {
 
     function handleEmailChange(event) {
         setEmail(event.target.value);
+    }
+    
+    function validateEmailChange() {
+        setErrors({
+            "email" : !email.match(
+                /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+                )
+        });
     }
 
 
@@ -56,7 +64,11 @@ export default function FriendForm () {
                                 placeholder="Wallet Address"
                                 value={wallet}
                                 onChange={handleWalletChange}
+                                invalid={errors["wallet"]}
                             />
+                            <FormFeedback>
+                                Please input valid Etherium address.
+                            </FormFeedback>
                         </Col>
                     </FormGroup>
                     <FormGroup row>
@@ -68,7 +80,12 @@ export default function FriendForm () {
                                 type="email"
                                 value={email}
                                 onChange={handleEmailChange}
+                                onBlur={validateEmailChange}
+                                invalid={errors["email"]}
                             />
+                            <FormFeedback>
+                                Please input valid email.
+                            </FormFeedback>
                         </Col>
                     </FormGroup>
                     <FormGroup row>
