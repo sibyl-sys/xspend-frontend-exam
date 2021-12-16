@@ -45,7 +45,8 @@ export function FriendsListProvider ({children}) {
         window.localStorage.setItem("ETHFriendList", JSON.stringify(updatedFriendsList));
     } 
     
-    const updateFriend = (index, friend) => () => {
+    const updateFriend = (index, friend) => {
+        console.log(friend);
         const updatedFriendsList = [...friendsList];
         updatedFriendsList[index] = friend;
         setFriendsList(updatedFriendsList);

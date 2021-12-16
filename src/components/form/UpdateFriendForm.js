@@ -1,30 +1,26 @@
 import React, {useState} from "react";
 import { Form, FormGroup, Input, Col, Button, FormFeedback } from "reactstrap"
-import { useFriendsListAdd, useFriendsList } from "../providers/FriendsList";
+import { useFriendsListUpdate, useFriendsList } from "../providers/FriendsList";
 
 
-export default function FriendForm () {
+export default function UpdateFriendForm (props) {
 
-    const [name, setName] = useState("");
-    const [wallet, setWallet] = useState("");
-    const [email, setEmail] = useState("");
+    const [name, setName] = useState(props.name);
+    const [wallet, setWallet] = useState(props.wallet);
+    const [email, setEmail] = useState(props.email);
     const [errors, setErrors] = useState({});
-    const friendListAdd = useFriendsListAdd();
+    const friendListUpdate = useFriendsListUpdate();
     const friendsList = useFriendsList();
 
-    console.log(friendsList);
 
     function handleSubmit(event) {
         event.preventDefault();
-        friendListAdd({
+        friendListUpdate(props.index, {
             "name": name,
             "wallet": wallet,
             "email": email
         });
-        setEmail("");
-        setName("");
-        setWallet("");
-        setErrors({});
+        props.toggle();
     }
 
     function handleNameChange(event) {
@@ -44,7 +40,6 @@ export default function FriendForm () {
             ...errors,
             "wallet" : !(/^(0x){1}[0-9a-fA-F]{40}$/i.test(wallet))
         });
-        console.log(errors);
     }
     
     function validateEmailChange() {
@@ -112,7 +107,7 @@ export default function FriendForm () {
                         color="primary"
                         disabled={(!wallet && errors)}
                     >
-                        Add Account
+                        Update Account
                     </Button>
                 </Col>
             </FormGroup>
