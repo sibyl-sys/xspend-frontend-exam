@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import { Container, Form, FormGroup, Input, Col, Row, Button, FormFeedback } from "reactstrap"
+import { Form, FormGroup, Input, Col, Button, FormFeedback } from "reactstrap"
 import { useFriendsListAdd, useFriendsList } from "../providers/FriendsList";
 
 

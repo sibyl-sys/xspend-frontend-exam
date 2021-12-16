@@ -1,5 +1,5 @@
-import React, {useState} from "react";
-import { Button, Card, CardSubtitle, CardTitle, UncontrolledDropdown, DropdownItem, DropdownMenu, DropdownToggle } from "reactstrap";
+import React from "react";
+import { Card, CardSubtitle, CardTitle, UncontrolledDropdown, DropdownItem, DropdownMenu, DropdownToggle } from "reactstrap";
 
 export default function FriendsListCard(props) {
     return <Card className="mt-2 p-2">
