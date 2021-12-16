@@ -1,5 +1,6 @@
 import React, {useContext, useState} from "react";
 import { Container, Form, FormGroup, Input, Col, Row, Button, FormFeedback } from "reactstrap"
+import { useFriendsListAdd, useFriendsList } from "../providers/FriendsList";
 
 
 export default function FriendForm () {
@@ -8,10 +9,18 @@ export default function FriendForm () {
     const [wallet, setWallet] = useState("");
     const [email, setEmail] = useState("");
     const [errors, setErrors] = useState({});
+    const friendListAdd = useFriendsListAdd();
+    const friendsList = useFriendsList();
 
+    console.log(friendsList);
 
     function handleSubmit(event) {
         event.preventDefault();
+        friendListAdd({
+            "name": name,
+            "wallet": wallet,
+            "email": email
+        });
         setEmail("");
         setName("");
         setWallet("");
@@ -105,7 +114,7 @@ export default function FriendForm () {
                         <Col className="d-grid">
                             <Button
                                 color="primary"
-                                disabled={!wallet && errors}
+                                disabled={(!wallet && errors)}
                             >
                                 Add Account
                             </Button>

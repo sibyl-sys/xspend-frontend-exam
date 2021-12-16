@@ -29,28 +29,28 @@ export function useFriendsListDelete() {
 
 export function FriendsListProvider ({children}) {
     const [friendsList, setFriendsList] = useState(
-        JSON.parse(window.localStorage.getItem("ETHFriendsList")) || []
+        JSON.parse(window.localStorage.getItem("ETHFriendsList"), [])
     );
 
-    const addFriend = friend => () => {
-        setFriendsList([...friendsList, friend]);
-        window.localStorage.setItem("ETHFriendsList", JSON.stringify(friendsList));
+    const addFriend = friend => {
+        const updatedFriendsList = [...friendsList, friend];
+        setFriendsList(updatedFriendsList);
+        window.localStorage.setItem("ETHFriendsList", JSON.stringify(updatedFriendsList));
     } 
 
-    const deleteFriend = (index, friend) => () => {
+    const deleteFriend = (index, friend) => {
         const updatedFriendsList = [...friendsList];
         updatedFriendsList.splice(index, 1);
         setFriendsList(updatedFriendsList);
-        window.localStorage.setItem("ETHFriendsList", JSON.stringify(friendsList));
+        window.localStorage.setItem("ETHFriendsList", JSON.stringify(updatedFriendsList));
     } 
     
-    const updateFriend = (index, friend) => () => {
+    const updateFriend = (index, friend) => {
         const updatedFriendsList = [...friendsList];
         updatedFriendsList[index] = friend;
         setFriendsList(updatedFriendsList);
-        window.localStorage.setItem("ETHFriendsList", JSON.stringify(friendsList));
+        window.localStorage.setItem("ETHFriendsList", JSON.stringify(updatedFriendsList));
     }
-
     return (
         <FriendsListContext.Provider value={friendsList}>
             <FriendsListAddContext.Provider value={addFriend}>
