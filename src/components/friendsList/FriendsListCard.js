@@ -12,7 +12,7 @@ export default function FriendsListCard(props) {
                     <i className="bi bi-three-dots-vertical"></i>
                 </DropdownToggle>
                 <DropdownMenu>
-                <DropdownItem>Update</DropdownItem>
+                <DropdownItem onClick={props.onUpdate(props.index)}>Update</DropdownItem>
                 <DropdownItem onClick={deleteFriend(props.index)}>Delete</DropdownItem>
                 </DropdownMenu>
             </UncontrolledDropdown>
