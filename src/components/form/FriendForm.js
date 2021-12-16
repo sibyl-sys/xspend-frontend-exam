@@ -2,7 +2,6 @@ import React, {useContext, useState} from "react";
 import { Container, Form, FormGroup, Input, Col, Row, Button, FormFeedback } from "reactstrap"
 
 
-
 export default function FriendForm () {
 
     const [name, setName] = useState("");
@@ -13,6 +12,10 @@ export default function FriendForm () {
 
     function handleSubmit(event) {
         event.preventDefault();
+        setEmail("");
+        setName("");
+        setWallet("");
+        setErrors({});
     }
 
     function handleNameChange(event) {
@@ -26,9 +29,18 @@ export default function FriendForm () {
     function handleEmailChange(event) {
         setEmail(event.target.value);
     }
+
+    function validateWalletChange() {
+        setErrors({
+            ...errors,
+            "wallet" : !(/^(0x){1}[0-9a-fA-F]{40}$/i.test(wallet))
+        });
+        console.log(errors);
+    }
     
     function validateEmailChange() {
         setErrors({
+            ...errors,
             "email" : !email.match(
                 /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
                 )
@@ -64,10 +76,11 @@ export default function FriendForm () {
                                 placeholder="Wallet Address"
                                 value={wallet}
                                 onChange={handleWalletChange}
+                                onBlur={validateWalletChange}
                                 invalid={errors["wallet"]}
                             />
                             <FormFeedback>
-                                Please input valid Etherium address.
+                                Please input valid Ethereum wallet address.
                             </FormFeedback>
                         </Col>
                     </FormGroup>
@@ -92,6 +105,7 @@ export default function FriendForm () {
                         <Col className="d-grid">
                             <Button
                                 color="primary"
+                                disabled={!wallet && errors}
                             >
                                 Add Account
                             </Button>
