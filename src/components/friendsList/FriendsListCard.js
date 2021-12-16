@@ -1,7 +1,9 @@
 import React from "react";
 import { Card, CardSubtitle, CardTitle, UncontrolledDropdown, DropdownItem, DropdownMenu, DropdownToggle } from "reactstrap";
+import {useFriendsListDelete} from "../providers/FriendsList"
 
 export default function FriendsListCard(props) {
+    const deleteFriend = useFriendsListDelete();
     return <Card className="mt-2 p-2">
         <CardTitle className="d-flex justify-content-between" tag="h5">
             {props.value.name} 
@@ -11,7 +13,7 @@ export default function FriendsListCard(props) {
                 </DropdownToggle>
                 <DropdownMenu>
                 <DropdownItem>Update</DropdownItem>
-                <DropdownItem>Delete</DropdownItem>
+                <DropdownItem onClick={deleteFriend(props.index)}>Delete</DropdownItem>
                 </DropdownMenu>
             </UncontrolledDropdown>
         </CardTitle>

@@ -29,36 +29,36 @@ export function useFriendsListDelete() {
 
 export function FriendsListProvider ({children}) {
     const [friendsList, setFriendsList] = useState(
-        JSON.parse(window.localStorage.getItem("ETHFriendsList"), [])
+        JSON.parse(window.localStorage.getItem("ETHFriendList"), []) || []
     );
 
     const addFriend = friend => {
         const updatedFriendsList = [...friendsList, friend];
         setFriendsList(updatedFriendsList);
-        window.localStorage.setItem("ETHFriendsList", JSON.stringify(updatedFriendsList));
+        window.localStorage.setItem("ETHFriendList", JSON.stringify(updatedFriendsList));
     } 
 
-    const deleteFriend = (index, friend) => {
+    const deleteFriend = (index) => () => {
         const updatedFriendsList = [...friendsList];
         updatedFriendsList.splice(index, 1);
         setFriendsList(updatedFriendsList);
-        window.localStorage.setItem("ETHFriendsList", JSON.stringify(updatedFriendsList));
+        window.localStorage.setItem("ETHFriendList", JSON.stringify(updatedFriendsList));
     } 
     
-    const updateFriend = (index, friend) => {
+    const updateFriend = (index, friend) => () => {
         const updatedFriendsList = [...friendsList];
         updatedFriendsList[index] = friend;
         setFriendsList(updatedFriendsList);
-        window.localStorage.setItem("ETHFriendsList", JSON.stringify(updatedFriendsList));
+        window.localStorage.setItem("ETHFriendList", JSON.stringify(updatedFriendsList));
     }
     return (
         <FriendsListContext.Provider value={friendsList}>
             <FriendsListAddContext.Provider value={addFriend}>
-                <FriendsListUpdateContext.Provider value={deleteFriend}>
-                    <FriendDeleteContext.Provider value={updateFriend}>
+                <FriendDeleteContext.Provider value={deleteFriend}>
+                    <FriendsListUpdateContext.Provider value={updateFriend}>
                         {children}
-                    </FriendDeleteContext.Provider>
-                </FriendsListUpdateContext.Provider>
+                    </FriendsListUpdateContext.Provider>
+                </FriendDeleteContext.Provider>
             </FriendsListAddContext.Provider>
         </FriendsListContext.Provider>
     )
