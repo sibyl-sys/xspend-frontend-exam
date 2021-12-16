@@ -1,10 +1,10 @@
 import React, {useState} from "react";
 import { Button, Card, CardSubtitle, CardTitle, UncontrolledDropdown, DropdownItem, DropdownMenu, DropdownToggle } from "reactstrap";
 
-export default function FriendsListCard() {
+export default function FriendsListCard(props) {
     return <Card className="mt-2 p-2">
         <CardTitle className="d-flex justify-content-between" tag="h5">
-            Name 
+            {props.value.name} 
             <UncontrolledDropdown>
                 <DropdownToggle data-toggle="dropdown" tag="span">
                     <i className="bi bi-three-dots-vertical"></i>
@@ -18,8 +18,9 @@ export default function FriendsListCard() {
         <CardSubtitle
             className="mb-2 text-muted"
         >
-            Wallet Address<br/>
-            Email Address 
+            <small>{props.value.wallet}<br/>
+            {props.value.email}
+            </small>
         </CardSubtitle>
     </Card>
 }

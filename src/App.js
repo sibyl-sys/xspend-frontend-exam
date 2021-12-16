@@ -12,7 +12,7 @@ function App() {
         className="mt-5"
     >
       <Row className="justify-content-md-center  ">
-        <Col sm={6} className="bg-light border p-3">
+        <Col sm={8} className="bg-light border p-3">
           <FriendsListProvider>
             <FriendForm />
             <FriendsListView />
